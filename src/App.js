@@ -1,0 +1,81 @@
+import React, { useState } from 'react';
+import BMIForm from './BMIForm';
+import BMIChart from './BMIChart';
+import HealthTips from './HealthTips';
+import './ButtonControls.css';
+
+function App() {
+  const [showForm, setShowForm] = useState(true);
+  const [showChart, setShowChart] = useState(false);
+  const [showTips, setShowTips] = useState(false);
+
+  // State and input handlers for user name input
+  const [userName, setUserName] = useState('');
+  const [inputError, setInputError] = useState('');
+
+  const handleInputChange = (e) => {
+    const value = e.target.value;
+    // Basic sanitization: remove numbers and special characters
+    const sanitizedValue = value.replace(/[^a-zA-Z\s]/g, '');
+
+    if (sanitizedValue !== value) {
+      setInputError('Only letters and spaces are allowed');
+    } else {
+      setInputError('');
+    }
+
+    setUserName(sanitizedValue);
+  };
+
+  const [useMetric, setUseMetric] = useState(true);
+
+  return (
+    <div className="App">
+      <h1>BMI Buddy</h1>
+      <div className="user-input">
+        <label htmlFor="userName">Enter Your Name:</label>
+        <input
+          id="userName"
+          type="text"
+          value={userName}
+          onChange={handleInputChange}
+          placeholder="Your name"
+        />
+        {inputError && <p className="error">{inputError}</p>}
+      </div>
+
+      <div className="unit-toggle">
+        <button onClick={() => setUseMetric(prev => !prev)}>
+          Switch to {useMetric ? 'Imperial' : 'Metric'} Units
+        </button>
+      </div>
+
+      <div className="button-group">
+        <button
+          className={showForm ? 'active' : ''}
+          onClick={() => setShowForm(prev => !prev)}
+        >
+          {showForm ? 'Hide' : 'Show'} BMI Form
+        </button>
+        <button
+          className={showChart ? 'active' : ''}
+          onClick={() => setShowChart(prev => !prev)}
+        >
+          {showChart ? 'Hide' : 'Show'} BMI Chart
+        </button>
+        <button
+          className={showTips ? 'active' : ''}
+          onClick={() => setShowTips(prev => !prev)}
+        >
+          {showTips ? 'Hide' : 'Show'} Health Tips
+        </button>
+      </div>
+
+      {showForm && <BMIForm userName={userName} useMetric={useMetric} />}
+      {showChart && <BMIChart />}
+      {showTips && <HealthTips />}
+    </div>
+  );
+}
+
+export default App;

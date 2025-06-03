@@ -1,0 +1,52 @@
+/* Set a light background and base font color */
+body {
+  background-color: #f9f9f9;
+  color: #333;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Add some padding and max-width for main content containers */
+#root {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+/* Global link styles */
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+/* Accessibility: visible focus outlines */
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 3px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Error message styling */
+.error {
+  color: #dc3545;
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+/* Basic box-sizing for all elements */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
