@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import HealthTips from './HealthTips';
 
 function BMIForm({ userName, useMetric }) {
   const [height, setHeight] = useState('');
@@ -61,6 +60,7 @@ function BMIForm({ userName, useMetric }) {
 
       const feet = parseInt(heightParts[0], 10);
       const inches = parseInt(heightParts[1], 10);
+
       if (isNaN(feet) || isNaN(inches)) {
         setError('Invalid height format');
         setBmi(null);
@@ -79,25 +79,28 @@ function BMIForm({ userName, useMetric }) {
 
   return (
     <div>
-      <h2>Enter your height and weight</h2>
+      <h2>Welcome{userName ? `, ${userName}` : ''}!</h2>
+      <p>Enter your height and weight to calculate your BMI:</p>
+
       <input
         value={height}
         onChange={handleHeightChange}
-        placeholder={useMetric ? "Height (cm)" : "Height (ft.in)"}
+        placeholder={useMetric ? "Height (cm)" : "Height (ft.in, e.g. 5.8)"}
       />
       <input
         value={weight}
         onChange={handleWeightChange}
         placeholder={useMetric ? "Weight (kg)" : "Weight (lbs)"}
       />
-      {error && <p className="error">{error}</p>}
+
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+
       <button onClick={calculateBMI}>Calculate BMI</button>
 
       {bmi && (
-        <div>
-          <p><strong>BMI:</strong> {bmi}</p>
+        <div style={{ marginTop: '1rem' }}>
+          {userName ? `${userName}, your BMI is: ${bmi}` : `Your BMI is: ${bmi}`}
           <p><strong>Category:</strong> {category}</p>
-          <HealthTips category={category} />
         </div>
       )}
     </div>
