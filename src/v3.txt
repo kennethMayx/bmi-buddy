@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import BMIForm from './BMIForm';
 import BMIChart from './BMIChart';
 import HealthTips from './HealthTips';
 import './ButtonControls.css';
-
-ChartJS.register(ArcElement, Tooltip, Legend);
 
 function App() {
   const [showForm, setShowForm] = useState(true);
@@ -31,7 +28,7 @@ function App() {
   };
 
   const [useMetric, setUseMetric] = useState(true);
-  const [bmiValue, setBmiValue] = useState(null);
+
   return (
     <div className="App">
       <h1>BMI Buddy</h1>
@@ -74,14 +71,8 @@ function App() {
         </button>
       </div>
 
-      {showForm && (
-        <BMIForm
-          userName={userName}
-          useMetric={useMetric}
-          onBmiCalculated={setBmiValue}
-        />
-      )}
-      {showChart && <BMIChart bmiValue={bmiValue} />}
+      {showForm && <BMIForm userName={userName} useMetric={useMetric} />}
+      {showChart && <BMIChart />}
       {showTips && <HealthTips />}
     </div>
   );

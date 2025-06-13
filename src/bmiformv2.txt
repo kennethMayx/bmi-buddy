@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import HealthTips from './HealthTips';
 
-function BMIForm({ userName, useMetric, onBmiCalculated }) {
+function BMIForm({ userName, useMetric }) {
   const [height, setHeight] = useState('');
   const [weight, setWeight] = useState('');
   const [error, setError] = useState('');
@@ -73,7 +73,6 @@ function BMIForm({ userName, useMetric, onBmiCalculated }) {
     }
 
     const roundedBMI = parseFloat(bmiValue.toFixed(2));
-    onBmiCalculated(roundedBMI);
     setBmi(roundedBMI);
     setCategory(getBMICategory(roundedBMI));
   };
@@ -96,7 +95,7 @@ function BMIForm({ userName, useMetric, onBmiCalculated }) {
 
       {bmi && (
         <div>
-          <p><strong>BMI of {userName} :</strong> {bmi}</p>
+          <p><strong>BMI:</strong> {bmi}</p>
           <p><strong>Category:</strong> {category}</p>
           <HealthTips category={category} />
         </div>

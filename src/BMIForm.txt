@@ -1,110 +1,87 @@
 import React, { useState } from 'react';
+import BMIForm from './BMIForm';
+import BMIChart from './BMIChart';
+import HealthTips from './HealthTips';
+import './ButtonControls.css';
 
-function BMIForm({ userName, useMetric }) {
-  const [height, setHeight] = useState('');
-  const [weight, setWeight] = useState('');
-  const [error, setError] = useState('');
-  const [bmi, setBmi] = useState(null);
-  const [category, setCategory] = useState('');
+function App() {
+  const [showForm, setShowForm] = useState(true);
+  const [showChart, setShowChart] = useState(false);
+  const [showTips, setShowTips] = useState(false);
 
-  const handleHeightChange = (e) => {
+  // State and input handlers for user name input
+  const [userName, setUserName] = useState('');
+  const [inputError, setInputError] = useState('');
+
+  const handleInputChange = (e) => {
     const value = e.target.value;
-    if (/^[\d.]*$/.test(value)) {
-      setHeight(value);
-      setError('');
+    // Basic sanitization: remove numbers and special characters
+    const sanitizedValue = value.replace(/[^a-zA-Z\s]/g, '');
+
+    if (sanitizedValue !== value) {
+      setInputError('Only letters and spaces are allowed');
     } else {
-      setError('Height must be a number');
-    }
-  };
-
-  const handleWeightChange = (e) => {
-    const value = e.target.value;
-    if (/^[\d.]*$/.test(value)) {
-      setWeight(value);
-      setError('');
-    } else {
-      setError('Weight must be a number');
-    }
-  };
-
-  const getBMICategory = (bmi) => {
-    if (bmi < 18.5) return "Underweight";
-    if (bmi <= 24.9) return "Healthy Weight";
-    if (bmi <= 29.9) return "Overweight";
-    if (bmi >= 30.0) return "Obesity";
-    return "Invalid BMI";
-  };
-
-  const calculateBMI = () => {
-    if (!height || !weight) {
-      setError('Please enter both height and weight');
-      setBmi(null);
-      setCategory('');
-      return;
+      setInputError('');
     }
 
-    setError('');
-    let bmiValue;
-
-    if (useMetric) {
-      const heightMeters = parseFloat(height) / 100;
-      bmiValue = parseFloat(weight) / (heightMeters * heightMeters);
-    } else {
-      const heightParts = height.split('.');
-      if (heightParts.length !== 2) {
-        setError('Enter height as feet.inches (e.g., 5.8)');
-        setBmi(null);
-        setCategory('');
-        return;
-      }
-
-      const feet = parseInt(heightParts[0], 10);
-      const inches = parseInt(heightParts[1], 10);
-
-      if (isNaN(feet) || isNaN(inches)) {
-        setError('Invalid height format');
-        setBmi(null);
-        setCategory('');
-        return;
-      }
-
-      const totalInches = feet * 12 + inches;
-      bmiValue = (parseFloat(weight) / (totalInches * totalInches)) * 703;
-    }
-
-    const roundedBMI = parseFloat(bmiValue.toFixed(2));
-    setBmi(roundedBMI);
-    setCategory(getBMICategory(roundedBMI));
+    setUserName(sanitizedValue);
   };
 
+  const [useMetric, setUseMetric] = useState(true);
+  const [bmiValue, setBmiValue] = useState(null);
   return (
-    <div>
-      <h2>Welcome{userName ? `, ${userName}` : ''}!</h2>
-      <p>Enter your height and weight to calculate your BMI:</p>
+    <div className="App">
+      <h1>BMI Buddy</h1>
+      <div className="user-input">
+        <label htmlFor="userName">Enter Your Name:</label>
+        <input
+          id="userName"
+          type="text"
+          value={userName}
+          onChange={handleInputChange}
+          placeholder="Your name"
+        />
+        {inputError && <p className="error">{inputError}</p>}
+      </div>
 
-      <input
-        value={height}
-        onChange={handleHeightChange}
-        placeholder={useMetric ? "Height (cm)" : "Height (ft.in, e.g. 5.8)"}
-      />
-      <input
-        value={weight}
-        onChange={handleWeightChange}
-        placeholder={useMetric ? "Weight (kg)" : "Weight (lbs)"}
-      />
+      <div className="unit-toggle">
+        <button onClick={() => setUseMetric(prev => !prev)}>
+          Switch to {useMetric ? 'Imperial' : 'Metric'} Units
+        </button>
+      </div>
 
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <div className="button-group">
+        <button
+          className={showForm ? 'active' : ''}
+          onClick={() => setShowForm(prev => !prev)}
+        >
+          {showForm ? 'Hide' : 'Show'} BMI Form
+        </button>
+        <button
+          className={showChart ? 'active' : ''}
+          onClick={() => setShowChart(prev => !prev)}
+        >
+          {showChart ? 'Hide' : 'Show'} BMI Chart
+        </button>
+        <button
+          className={showTips ? 'active' : ''}
+          onClick={() => setShowTips(prev => !prev)}
+        >
+          {showTips ? 'Hide' : 'Show'} Health Tips
+        </button>
+      </div>
 
-      <button onClick={calculateBMI}>Calculate BMI</button>
-
-      {bmi && (
-        <div style={{ marginTop: '1rem' }}>
-          {userName ? `${userName}, your BMI is: ${bmi}` : `Your BMI is: ${bmi}`}
-          <p><strong>Category:</strong> {category}</p>
-        </div>
+      {showForm && (
+        <BMIForm
+          userName={userName}
+          useMetric={useMetric}
+          onBmiCalculated={setBmiValue}
+        />
       )}
+      {showChart && <BMIChart bmiValue={bmiValue} />}
+      {showTips && <HealthTips />}
     </div>
   );
 }
 
-export default BMIForm;
+export default App;
