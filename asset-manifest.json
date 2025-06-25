@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/BMI-Buddy/static/css/main.a2136af5.css",
-    "main.js": "/BMI-Buddy/static/js/main.f5188e1b.js",
-    "static/js/453.ac6825b9.chunk.js": "/BMI-Buddy/static/js/453.ac6825b9.chunk.js",
-    "index.html": "/BMI-Buddy/index.html",
-    "main.a2136af5.css.map": "/BMI-Buddy/static/css/main.a2136af5.css.map",
-    "main.f5188e1b.js.map": "/BMI-Buddy/static/js/main.f5188e1b.js.map",
-    "453.ac6825b9.chunk.js.map": "/BMI-Buddy/static/js/453.ac6825b9.chunk.js.map"
+    "main.css": "/bmi-buddy/static/css/main.a2136af5.css",
+    "main.js": "/bmi-buddy/static/js/main.2daaedb7.js",
+    "static/js/453.ac6825b9.chunk.js": "/bmi-buddy/static/js/453.ac6825b9.chunk.js",
+    "index.html": "/bmi-buddy/index.html",
+    "main.a2136af5.css.map": "/bmi-buddy/static/css/main.a2136af5.css.map",
+    "main.2daaedb7.js.map": "/bmi-buddy/static/js/main.2daaedb7.js.map",
+    "453.ac6825b9.chunk.js.map": "/bmi-buddy/static/js/453.ac6825b9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a2136af5.css",
-    "static/js/main.f5188e1b.js"
+    "static/js/main.2daaedb7.js"
   ]
 }
