@@ -4,12 +4,14 @@ import BMIForm from './BMIForm';
 import BMIChart from './BMIChart';
 import HealthTips from './HealthTips';
 import './ButtonControls.css';
+import './App.css';
+import './InputStyles.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function App() {
   const [showForm, setShowForm] = useState(true);
-  const [showChart, setShowChart] = useState(false);
+  const [showChart, setShowChart] = useState(true);
   const [showTips, setShowTips] = useState(false);
 
   // State and input handlers for user name input
@@ -34,7 +36,18 @@ function App() {
   const [bmiValue, setBmiValue] = useState(null);
   return (
     <div className="App">
-      <h1>BMI Buddy</h1>
+      <h1>
+  <span className="bmi-title">BMI</span>{' '}
+  <span className="buddy-title">Buddy</span>
+</h1>
+      <div className="bmi-info">
+        <h2>What to know</h2>
+        <p>
+          Body mass index (BMI) is a calculated measure of weight relative to height.
+          For adults, BMI is categorized into underweight, healthy weight, overweight, and obesity.
+          Obesity is further subdivided into three classes. This BMI calculator is for adults 20 and older.
+        </p>
+      </div>
       <div className="user-input">
         <label htmlFor="userName">Enter Your Name:</label>
         <input
@@ -43,6 +56,7 @@ function App() {
           value={userName}
           onChange={handleInputChange}
           placeholder="Your name"
+          className="name-input"
         />
         {inputError && <p className="error">{inputError}</p>}
       </div>
@@ -83,6 +97,14 @@ function App() {
       )}
       {showChart && <BMIChart bmiValue={bmiValue} />}
       {showTips && <HealthTips />}
+      <footer className="app-footer">
+  <h1>
+    <span className="bmi-title">BMI</span>{' '}
+    <span className="buddy-title">Buddy</span>
+  </h1>
+  <p>Built by Kenneth Mayeden</p>
+  <p>&copy; {new Date().getFullYear()} BMI Buddy. All rights reserved.</p>
+</footer>
     </div>
   );
 }

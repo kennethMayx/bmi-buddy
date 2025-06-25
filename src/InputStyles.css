@@ -1,0 +1,60 @@
+/* Base Input Style */
+.bmi-input,
+.height-input,
+.weight-input {
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 16px;
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 8px auto;
+  box-sizing: border-box;
+}
+
+/* General BMI input */
+.bmi-input {
+  border: 1px solid #ccc;
+  background-color: #f5faff;
+  color: #333;
+}
+
+/* Height input override */
+.height-input {
+  border: 1px solid #4a90e2;
+  background-color: #e6f0ff;
+  color: #000;
+}
+
+/* Weight input override */
+.weight-input {
+  border: 1px solid #50c878;
+  background-color: #eaffea;
+  color: #000;
+}
+.calculate-button {
+  background-color: #e7970d; /* Bootstrap primary blue */
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 12px;
+}
+
+.calculate-button:hover {
+  background-color: #ee2424; /* Darker blue on hover */
+}
+.name-input {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #f5faff;
+  color: #333;
+  width: 100%;
+  max-width: 200px;
+  margin: 16px auto 8px auto; /* Increase top margin */
+}

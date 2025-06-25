@@ -18,11 +18,12 @@ const BMIChart = ({ bmiValue }) => {
   const categoryRanges = [18.5, 24.9, 29.9, 40]; // example end values for ranges
 
   // Determine where user's BMI fits
-  const dataValues = categoryRanges.map((limit, index) =>
-    bmiValue <= limit && (index === 0 || bmiValue > categoryRanges[index - 1])
+  const dataValues = categoryRanges.map((limit, index) => {
+    if (!bmiValue) return 0;
+    return bmiValue <= limit && (index === 0 || bmiValue > categoryRanges[index - 1])
       ? bmiValue
-      : null
-  );
+      : 0;
+  });
 
   const backgroundColors = ['#36A2EB', '#4BC0C0', '#FFCE56', '#FF6384'];
 
@@ -62,6 +63,7 @@ const BMIChart = ({ bmiValue }) => {
   return (
     <div style={{ maxWidth: '600px', margin: '0 auto' }}>
       <h3>Your BMI Compared to Standard Categories</h3>
+      {!bmiValue && <p style={{ textAlign: 'center', color: '#888' }}>Calculate your BMI to see it highlighted on the chart.</p>}
       <Bar data={data} options={options} />
     </div>
   );

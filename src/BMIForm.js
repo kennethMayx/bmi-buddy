@@ -85,14 +85,16 @@ function BMIForm({ userName, useMetric, onBmiCalculated }) {
         value={height}
         onChange={handleHeightChange}
         placeholder={useMetric ? "Height (cm)" : "Height (ft.in)"}
+        className="height-input"
       />
       <input
         value={weight}
         onChange={handleWeightChange}
         placeholder={useMetric ? "Weight (kg)" : "Weight (lbs)"}
+        className="weight-input"
       />
       {error && <p className="error">{error}</p>}
-      <button onClick={calculateBMI}>Calculate BMI</button>
+      <button onClick={calculateBMI} className="calculate-button">Calculate BMI</button>
 
       {bmi && (
         <div>
